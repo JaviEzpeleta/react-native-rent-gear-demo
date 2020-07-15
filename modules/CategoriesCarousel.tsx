@@ -1,17 +1,16 @@
-import React, { useContext } from "react"
-import { useDispatch } from "react-redux"
-import { Dimensions, ScrollView, TouchableOpacity } from "react-native"
-import styled from "styled-components/native"
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Dimensions, ScrollView, TouchableOpacity } from "react-native";
+import styled from "styled-components/native";
 
-const screenWidth = Math.round(Dimensions.get("window").width)
-const screenHeight = Math.round(Dimensions.get("window").height)
+const screenHeight = Math.round(Dimensions.get("window").height);
 
 const CategoriesCarousel = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const goToCamera = () => {
-    dispatch({ type: "VIEW_EQUIPMENT" })
-  }
+    dispatch({ type: "VIEW_EQUIPMENT" });
+  };
 
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -27,8 +26,8 @@ const CategoriesCarousel = () => {
           </TouchableOpacity>
         ))}
     </ScrollView>
-  )
-}
+  );
+};
 
 const categories = [
   {
@@ -47,11 +46,11 @@ const categories = [
     name: "Lenses",
     image: require("../assets/images/sony-lens.png"),
   },
-]
+];
 
 const Category = styled.View`
   margin-right: 16px;
-`
+`;
 
 const CategoryImageWrapper = styled.View`
   background: white;
@@ -61,17 +60,17 @@ const CategoryImageWrapper = styled.View`
   height: ${screenHeight > 700 ? "170px" : "120px"};
   align-items: center;
   justify-content: center;
-`
+`;
 const CategoryImage = styled.Image`
   width: ${screenHeight > 700 ? "130px" : "100px"};
   height: ${screenHeight > 700 ? "130px" : "100px"};
-`
+`;
 
 const CategoryName = styled.Text`
   font-size: 18px;
   margin-left: 2px;
   font-family: "montserrat-bold";
   color: ${(props) => props.theme.blackText};
-`
+`;
 
-export default CategoriesCarousel
+export default CategoriesCarousel;

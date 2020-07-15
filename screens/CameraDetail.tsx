@@ -1,65 +1,73 @@
-import React, { useEffect } from "react"
-import styled from "styled-components/native"
-import { TouchableOpacity, Dimensions } from "react-native"
-import { Feather } from "@expo/vector-icons"
-import { CartButton, Row, Column } from "../components"
-import { SharedElement } from "react-navigation-shared-element"
-import Animated, { Easing } from "react-native-reanimated"
+import React, { useEffect } from "react";
+import styled from "styled-components/native";
+import { TouchableOpacity, Dimensions } from "react-native";
+import { Feather } from "@expo/vector-icons";
+import { SharedElement } from "react-navigation-shared-element";
+import Animated, { Easing } from "react-native-reanimated";
 
-const screenHeight = Math.round(Dimensions.get("window").height)
-const duration = 400
+import { CartButton, Row, Column } from "../components";
+
+const screenHeight = Math.round(Dimensions.get("window").height);
+const duration = 400;
 
 export default function CameraDetail({ route, navigation }) {
-  const { camera } = route.params
+  const { camera } = route.params;
 
-  const introOpacity = new Animated.Value(0)
-  const introTranslateY = new Animated.Value(70)
-  const introTranslateY2 = new Animated.Value(330)
-  const introScale = new Animated.Value(0.85)
-  const introScale2 = new Animated.Value(0.3)
-  const animateIntro = () => {
-    Animated.timing(introOpacity, {
-      toValue: 1,
-      duration: 600,
-      easing: Easing.in(Easing.ease),
-    }).start()
-    Animated.timing(introScale, {
-      toValue: 1,
-      duration: duration,
-      easing: Easing.in(Easing.ease),
-    }).start()
-    Animated.timing(introScale2, {
-      toValue: 1,
-      duration: 600,
-      easing: Easing.out(Easing.ease),
-    }).start()
-
-    Animated.timing(introTranslateY, {
-      toValue: 0,
-      duration: duration,
-      easing: Easing.in(Easing.ease),
-    }).start()
-    Animated.timing(introTranslateY2, {
-      toValue: 0,
-      duration: 700,
-      easing: Easing.out(Easing.ease),
-    }).start()
-  }
+  const introOpacity = new Animated.Value(0);
+  const introTranslateY = new Animated.Value(70);
+  const introTranslateY2 = new Animated.Value(330);
+  const introScale = new Animated.Value(0.85);
+  const introScale2 = new Animated.Value(0.3);
 
   useEffect(() => {
-    animateIntro()
-  }, [])
+    const animateIntro = () => {
+      Animated.timing(introOpacity, {
+        toValue: 1,
+        duration: 600,
+        easing: Easing.in(Easing.ease),
+      }).start();
+      Animated.timing(introScale, {
+        toValue: 1,
+        duration: duration,
+        easing: Easing.in(Easing.ease),
+      }).start();
+      Animated.timing(introScale2, {
+        toValue: 1,
+        duration: 600,
+        easing: Easing.out(Easing.ease),
+      }).start();
+
+      Animated.timing(introTranslateY, {
+        toValue: 0,
+        duration: duration,
+        easing: Easing.in(Easing.ease),
+      }).start();
+      Animated.timing(introTranslateY2, {
+        toValue: 0,
+        duration: 700,
+        easing: Easing.out(Easing.ease),
+      }).start();
+    };
+
+    animateIntro();
+  }, [
+    introOpacity,
+    introScale,
+    introScale2,
+    introTranslateY,
+    introTranslateY2,
+  ]);
 
   const goBack = () => {
-    navigation.goBack()
-  }
+    navigation.goBack();
+  };
   return (
     <>
       <PageWrapper>
         <CardWrapper>
           <HeaderWrapper>
             <TouchableOpacity onPress={() => goBack()}>
-              <Feather name="chevron-left" size={36}></Feather>
+              <Feather name="chevron-left" size={36} />
             </TouchableOpacity>
             <CartButton />
           </HeaderWrapper>
@@ -103,8 +111,8 @@ export default function CameraDetail({ route, navigation }) {
                 }}
               >
                 <Row style={{ marginTop: -20, marginRight: -20 }}>
-                  <StrongProgressBar></StrongProgressBar>
-                  <ThinProgressBar></ThinProgressBar>
+                  <StrongProgressBar />
+                  <ThinProgressBar />
                 </Row>
               </Animated.View>
             </Column>
@@ -193,7 +201,7 @@ export default function CameraDetail({ route, navigation }) {
         </BottomButton>
       </Animated.View>
     </>
-  )
+  );
 }
 const BottomButton = styled.View`
   background: ${(props) => props.theme.primary};
@@ -202,19 +210,19 @@ const BottomButton = styled.View`
   justify-content: center;
   border-radius: ${screenHeight > 700 ? "24px" : "0"};
   box-shadow: ${(props) => props.theme.boxShadow};
-`
+`;
 const ButtonText = styled.Text`
   font-family: "montserrat-semibold";
   font-size: 20px;
   color: white;
-`
+`;
 const prices = [
   {
     day: "WEEKDAY",
     price: "10.00",
   },
   { day: "WEEKEND", price: "10.00" },
-]
+];
 
 const CardWrapper = styled.View`
   background: white;
@@ -224,68 +232,63 @@ const CardWrapper = styled.View`
   box-shadow: ${(props) => props.theme.boxShadow};
   margin-top: -9px;
   border: 2px solid white;
-`
+`;
 
 const StrongProgressBar = styled.View`
   width: 70px;
   height: 2px;
   background: ${(props) => props.theme.primary};
-`
+`;
 const ThinProgressBar = styled.View`
   width: 220px;
   height: 2px;
   background: ${(props) => props.theme.primaryLighter2};
-`
+`;
 
 const CountBlock = styled.View`
   margin: 12px;
   margin-left: 30px;
   box-shadow: ${(props) => props.theme.boxShadow};
-`
+`;
 
 const RentsCount = styled.Text`
   font-family: "montserrat-semibold";
   color: ${(props) => props.theme.blackText};
   font-size: 25px;
   margin-bottom: 4px;
-`
+`;
 
 const ReviewsCount = styled.Text`
   font-family: "montserrat-semibold";
   color: ${(props) => props.theme.blackText};
   font-size: 25px;
   margin-bottom: 4px;
-`
+`;
 
 const CountBlockLabel = styled.Text`
   font-family: "montserrat-semibold";
   color: ${(props) => props.theme.grayText};
   font-size: 14px;
-`
+`;
 
 const PageWrapper = styled.View`
   background: ${(props) => props.theme.appBackground};
   flex: 1;
   padding-top: 9px;
-`
+`;
 
-const PageTitle = styled.Text`
-  font-family: "montserrat-extra-bold";
-  color: ${(props) => props.theme.blackText};
-  font-size: 24px;
-`
 const TitleWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   margin: ${screenHeight > 700 ? "24px 20px 16px" : "12px 20px 16px"};
-`
+`;
 
 const Title = styled.Text`
   font-family: "montserrat-bold";
   color: ${(props) => props.theme.blackText};
   font-size: ${screenHeight > 700 ? "24px" : "24px"};
-`
+`;
 
 const HeaderWrapper = styled.View`
   width: 100%;
@@ -294,13 +297,13 @@ const HeaderWrapper = styled.View`
   padding: ${screenHeight > 700 ? "20px" : "0px 10px"};
   margin-top: 40px;
   align-items: center;
-`
+`;
 const Image = styled.Image`
   width: ${screenHeight > 700 ? "300px" : "220px"};
   height: ${screenHeight > 700 ? "300px" : "220px"};
   margin-right: -16px;
   margin-top: -30px;
-`
+`;
 
 const TagWrapper = styled.View`
   background: ${(props) => props.theme.tagBackground};
@@ -309,12 +312,12 @@ const TagWrapper = styled.View`
   align-items: center;
   margin-right: 12px;
   border-radius: 8px;
-`
+`;
 const Tag = styled.Text`
   font-family: "montserrat-bold";
   color: ${(props) => props.theme.blackTextLighter};
   font-size: 14px;
-`
+`;
 
 const DescriptionText = styled.Text`
   color: ${(props) => props.theme.grayText};
@@ -323,7 +326,7 @@ const DescriptionText = styled.Text`
   padding: ${screenHeight > 700
     ? "20px 30px 20px 20px"
     : "12px 30px 12px 20px"};
-`
+`;
 
 const AboutAndPriceWrapper = styled.View`
   background: white;
@@ -333,7 +336,7 @@ const AboutAndPriceWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
   box-shadow: ${(props) => props.theme.boxShadow};
-`
+`;
 const PriceDetailsBlock = styled.View`
   margin: 0px 20px 0px 20px;
   padding: 4px 4px;
@@ -341,25 +344,25 @@ const PriceDetailsBlock = styled.View`
   flex-direction: row;
   align-content: center;
   justify-content: flex-start;
-`
+`;
 const AboutWrapper = styled.View`
   padding: ${screenHeight > 700 ? "14px 64px" : "10px 44px"};
-`
+`;
 const PriceWrapper = styled.View`
   background: ${(props) => props.theme.primary};
   padding: ${screenHeight > 700 ? "14px 64px" : "10px 44px"};
   border-radius: 30px;
-`
+`;
 const About = styled.Text`
   font-size: 16px;
   font-family: "montserrat-semibold";
   color: ${(props) => props.theme.grayText};
-`
+`;
 const Price = styled.Text`
   font-size: 16px;
   font-family: "montserrat-semibold";
   color: white;
-`
+`;
 
 const PriceBlock = styled.View`
   border-radius: 14px;
@@ -368,22 +371,22 @@ const PriceBlock = styled.View`
   margin: 0px 20px 0px 0px;
   align-content: center;
   justify-content: center;
-`
+`;
 const PriceDay = styled.Text`
   text-align: center;
   font-size: 12px;
   font-family: "montserrat-medium";
   color: ${(props) => props.theme.grayText};
-`
+`;
 const PriceValue = styled.Text`
   font-size: 24px;
   font-family: "montserrat-semibold";
   color: ${(props) => props.theme.blackText};
-`
+`;
 const Dollar = styled.Text`
   font-size: 14px;
   margin-right: 2px;
   margin-top: 2px;
   font-family: "montserrat-semibold";
   color: ${(props) => props.theme.blackText};
-`
+`;

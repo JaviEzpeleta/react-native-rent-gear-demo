@@ -1,13 +1,12 @@
-import React, { Component } from "react"
-import styled from "styled-components/native"
-import Animated, { Easing } from "react-native-reanimated"
-import { Dimensions, TouchableOpacity } from "react-native"
-import { connect } from "react-redux"
+import React, { Component } from "react";
+import styled from "styled-components/native";
+import Animated, { Easing } from "react-native-reanimated";
+import { Dimensions, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
 
-const screenWidth = Math.round(Dimensions.get("window").width)
-const screenHeight = Math.round(Dimensions.get("window").height)
+const screenHeight = Math.round(Dimensions.get("window").height);
 
-const duration = 400
+const duration = 400;
 
 class EquipmentItem extends Component {
   state = {
@@ -15,60 +14,60 @@ class EquipmentItem extends Component {
     scale: new Animated.Value(0.1),
     translateY: new Animated.Value(150),
     translateX: new Animated.Value(50),
-  }
+  };
 
   fadeOut() {
-    const { opacity, translateY, translateX, scale } = this.state
+    const { opacity, translateY, translateX, scale } = this.state;
     Animated.timing(opacity, {
       toValue: 0,
       duration: 500,
       easing: Easing.out(Easing.ease),
       //   useNativeDriver: true,
-    }).start()
+    }).start();
     Animated.timing(scale, {
       toValue: 0.1,
       duration: duration,
       easing: Easing.out(Easing.ease),
       //   useNativeDriver: true,
-    }).start()
+    }).start();
     Animated.timing(translateY, {
       toValue: 50,
       duration: duration,
       easing: Easing.out(Easing.ease),
       //   useNativeDriver: true,
-    }).start()
+    }).start();
     Animated.timing(translateX, {
       toValue: 40,
       duration: duration,
       easing: Easing.out(Easing.ease),
       //   useNativeDriver: true,
-    }).start()
+    }).start();
   }
 
   listCameras = () => {
     // console.log("List Cameras clicked!!")
 
-    this.props.leaveEquipmentPage()
+    this.props.leaveEquipmentPage();
 
     setTimeout(() => {
       // console.log("Going to Next Page (v1)....")
-      this.props.goToCameras()
-    }, 400)
-  }
+      this.props.goToCameras();
+    }, 400);
+  };
 
   componentDidUpdate() {
-    const { action } = this.props
+    const { action } = this.props;
 
     // console.log(" 🇨🇦 NavBar action: " + action)
 
     if (action === "leaveEquipmentPage") {
-      this.fadeOut()
+      this.fadeOut();
     }
   }
 
   componentDidMount() {
-    const { rightColumn, item, index } = this.props
-    const { opacity, translateY, translateX, scale } = this.state
+    const { index } = this.props;
+    const { opacity, translateY, translateX, scale } = this.state;
     // console.log("🇧🇼 on LOAD is this!!")
     setTimeout(() => {
       Animated.timing(opacity, {
@@ -76,31 +75,31 @@ class EquipmentItem extends Component {
         duration: 500,
         easing: Easing.out(Easing.ease),
         //   useNativeDriver: true,
-      }).start()
+      }).start();
       Animated.timing(scale, {
         toValue: 1,
         duration: duration,
         easing: Easing.out(Easing.ease),
         //   useNativeDriver: true,
-      }).start()
+      }).start();
       Animated.timing(translateY, {
         toValue: 0,
         duration: duration,
         easing: Easing.out(Easing.ease),
         //   useNativeDriver: true,
-      }).start()
+      }).start();
       Animated.timing(translateX, {
         toValue: 0,
         duration: duration,
         easing: Easing.out(Easing.ease),
         //   useNativeDriver: true,
-      }).start()
-    }, index * 120 + 120)
+      }).start();
+    }, index * 120 + 120);
   }
 
   render() {
-    const { rightColumn, item } = this.props
-    const { opacity, translateY, translateX, scale } = this.state
+    const { rightColumn, item } = this.props;
+    const { opacity, translateY, translateX, scale } = this.state;
     return (
       <TouchableOpacity onPress={() => this.listCameras()}>
         <ItemWrapper
@@ -120,7 +119,7 @@ class EquipmentItem extends Component {
             }}
           >
             <ImageWrapper>
-              <Image square={item.square} source={item.image}></Image>
+              <Image square={item.square} source={item.image} />
             </ImageWrapper>
           </Animated.View>
           <Animated.View
@@ -138,13 +137,13 @@ class EquipmentItem extends Component {
           </Animated.View>
         </ItemWrapper>
       </TouchableOpacity>
-    )
+    );
   }
 }
 
 const ItemWrapper = styled.View`
   margin-bottom: 18px;
-`
+`;
 const ImageWrapper = styled.View`
   background: white;
   padding: 24px 0px;
@@ -152,42 +151,41 @@ const ImageWrapper = styled.View`
   width: ${screenHeight > 700 ? "150px" : "130px"};
   justify-content: center;
   align-items: center;
-`
+`;
 
 const Image = styled.Image`
   width: ${screenHeight > 700 ? "140px" : "100px"};
   align-items: center;
   align-content: center;
   justify-content: center;
-  height: ${(props) =>
-    props.square
-      ? screenHeight > 700
-        ? "100px"
-        : "80px"
-      : screenHeight > 700
-      ? "150px"
-      : "120px"};
-`
+  height: ${(props) => {
+    if (props.square) {
+      return screenHeight > 700 ? "100px" : "80px";
+    } else {
+      return screenHeight > 700 ? "150px" : "120px";
+    }
+  }};
+`;
 const Title = styled.Text`
   font-family: "montserrat-extra-bold";
   font-size: 18px;
   margin: 8px 0px 2px;
   color: ${(props) => props.theme.blackText};
-`
+`;
 const Subtitle = styled.Text`
   font-family: "montserrat-bold";
   font-size: 14px;
   color: ${(props) => props.theme.grayText};
-`
+`;
 
 const mapStateToProps = (state) => {
-  return { action: state.action }
-}
+  return { action: state.action };
+};
 function mapDispatchToProps(dispatch) {
   return {
     leaveEquipmentPage: () => dispatch({ type: "LEAVE_EQUIPMENT_PAGE" }),
     goToCameras: () => dispatch({ type: "VIEW_CAMERAS" }),
-  }
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EquipmentItem)
+export default connect(mapStateToProps, mapDispatchToProps)(EquipmentItem);

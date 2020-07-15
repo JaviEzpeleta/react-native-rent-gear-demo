@@ -1,80 +1,69 @@
-import React, { useEffect, useContext } from "react"
-import { ScrollView, TouchableOpacity, Dimensions } from "react-native"
-import styled from "styled-components/native"
-import { withTheme } from "styled-components/native"
-import { Feather } from "@expo/vector-icons"
-import { Row, Column } from "../components"
-import { useDispatch, useSelector } from "react-redux"
-import EquipmentItem from "../modules/EquipmentItem"
-import Animated, { Easing } from "react-native-reanimated"
+import React, { useEffect } from "react";
+import { ScrollView, TouchableOpacity, Dimensions } from "react-native";
+import styled, { withTheme } from "styled-components/native";
+import { Feather } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import Animated, { Easing } from "react-native-reanimated";
 
-const screenWidth = Math.round(Dimensions.get("window").width)
-const screenHeight = Math.round(Dimensions.get("window").height)
+import EquipmentItem from "../modules/EquipmentItem";
+import { Row, Column } from "../components";
+
+const screenHeight = Math.round(Dimensions.get("window").height);
 
 const Equipment = () => {
-  const dispatch = useDispatch()
-  const currentAction = useSelector((state: any) => state.action)
+  const dispatch = useDispatch();
 
-  const opacity = new Animated.Value(0)
-  const translateX = new Animated.Value(30)
-  const bodyTranslateY = new Animated.Value(0)
-  const bodyOpacity = new Animated.Value(1)
+  const opacity = new Animated.Value(0);
+  const translateX = new Animated.Value(30);
+  const bodyTranslateY = new Animated.Value(0);
+  const bodyOpacity = new Animated.Value(1);
 
   const fadeItOut = () => {
     Animated.timing(opacity, {
       toValue: 0,
       duration: duration,
       easing: Easing.in(Easing.ease),
-    }).start()
+    }).start();
     Animated.timing(translateX, {
       toValue: 30,
       duration: duration,
       easing: Easing.in(Easing.ease),
-    }).start()
+    }).start();
     Animated.timing(bodyTranslateY, {
       toValue: 60,
       duration: duration,
       easing: Easing.in(Easing.ease),
-    }).start()
+    }).start();
     Animated.timing(bodyOpacity, {
       toValue: 0,
       duration: duration,
       easing: Easing.in(Easing.ease),
-    }).start()
-  }
+    }).start();
+  };
 
   const goHome = () => {
-    dispatch({ type: "LEAVE_EQUIPMENT_PAGE" })
+    dispatch({ type: "LEAVE_EQUIPMENT_PAGE" });
     // dispatch({ type: "FADE_OUT_CHAT_BUBBLE" })
-    fadeItOut()
+    fadeItOut();
     setTimeout(() => {
-      dispatch({ type: "VIEW_HOME" })
-    }, 400)
-  }
+      dispatch({ type: "VIEW_HOME" });
+    }, 600);
+  };
 
-  const duration = 400
+  const duration = 400;
 
   useEffect(() => {
     Animated.timing(opacity, {
       toValue: 1,
       duration: duration,
       easing: Easing.in(Easing.ease),
-    }).start()
+    }).start();
     Animated.timing(translateX, {
       toValue: 0,
       duration: duration,
       easing: Easing.in(Easing.ease),
-    }).start()
-  }, [])
-
-  useEffect(() => {
-    if (currentAction === "leaveEquipmentPage") {
-      // console.log(" 😅 Me desvanezco! ")
-    }
-    return () => {
-      // cleanup
-    }
-  }, [currentAction])
+    }).start();
+  }, [opacity, translateX]);
 
   return (
     <PageWrapper
@@ -89,7 +78,7 @@ const Equipment = () => {
             }}
           >
             <TouchableOpacity onPress={() => goHome()}>
-              <Feather name="chevron-left" size={36}></Feather>
+              <Feather name="chevron-left" size={36} />
             </TouchableOpacity>
           </Animated.View>
           <Animated.View
@@ -101,7 +90,7 @@ const Equipment = () => {
             <PageTitle>Photo Equipment</PageTitle>
           </Animated.View>
           {/* <CartButton /> */}
-          <EmptyCorner></EmptyCorner>
+          <EmptyCorner />
         </HeaderWrapper>
         <Animated.View
           style={{
@@ -136,8 +125,8 @@ const Equipment = () => {
         </Animated.View>
       </ScrollView>
     </PageWrapper>
-  )
-}
+  );
+};
 
 const itemsLeft = [
   {
@@ -158,7 +147,7 @@ const itemsLeft = [
     image: require("../assets/images/softbox.jpg"),
     square: false,
   },
-]
+];
 const itemsRight = [
   {
     name: "Lenses",
@@ -178,19 +167,19 @@ const itemsRight = [
     image: require("../assets/images/tripod.jpg"),
     square: false,
   },
-]
+];
 const PageWrapper = styled.View`
   background: ${(props) => props.theme.appBackground};
   /* padding-top: 14px; */
   padding: 10px 6px 0px 6px;
   height: ${screenHeight}px;
-`
+`;
 
 const PageTitle = styled.Text`
   font-family: "montserrat-extra-bold";
   color: ${(props) => props.theme.blackText};
   font-size: 24px;
-`
+`;
 
 const HeaderWrapper = styled.View`
   width: 100%;
@@ -199,10 +188,10 @@ const HeaderWrapper = styled.View`
   padding: ${screenHeight > 700 ? "20px" : "0px 10px"};
   margin: 30px 0px 20px;
   align-items: center;
-`
+`;
 
 const EmptyCorner = styled.View`
   width: 1px;
-`
+`;
 
-export default withTheme(Equipment)
+export default withTheme(Equipment);

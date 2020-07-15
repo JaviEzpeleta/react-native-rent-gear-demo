@@ -1,10 +1,10 @@
-import React from "react"
-import { Row, Column } from "../components"
-import styled from "styled-components/native"
-import { Dimensions } from "react-native"
+import React from "react";
+import styled from "styled-components/native";
+import { Dimensions } from "react-native";
 
-const screenWidth = Math.round(Dimensions.get("window").width)
-const screenHeight = Math.round(Dimensions.get("window").height)
+import { Row, Column } from "../components";
+
+const screenHeight = Math.round(Dimensions.get("window").height);
 
 export default function BestOffersHomeSection() {
   return (
@@ -36,10 +36,10 @@ export default function BestOffersHomeSection() {
         </InfoCard>
       </Content>
     </Wrapper>
-  )
+  );
 }
 
-const tags = ["Lens", "Canon"]
+const tags = ["Lens", "Canon"];
 
 const TagWrapper = styled.View`
   background: ${(props) => props.theme.tagBackground};
@@ -49,11 +49,11 @@ const TagWrapper = styled.View`
   align-items: center;
   margin-right: 12px;
   border-radius: 8px;
-`
+`;
 const Tag = styled.Text`
   font-family: "montserrat-bold";
   color: ${(props) => props.theme.blackText};
-`
+`;
 
 const OfferTitle = styled.Text`
   font-family: "montserrat-extra-bold";
@@ -61,14 +61,14 @@ const OfferTitle = styled.Text`
   font-size: ${screenHeight > 700 ? "15px" : "13px"};
   line-height: ${screenHeight > 700 ? "22px" : "18px"};
   margin-top: 14px;
-`
+`;
 
 const OfferTimePeriod = styled.Text`
   font-family: "montserrat-semibold";
   color: ${(props) => props.theme.grayText};
   font-size: 13px;
   margin-top: 6px;
-`
+`;
 
 const ImageWrapper = styled.View`
   background: white;
@@ -81,7 +81,7 @@ const ImageWrapper = styled.View`
   box-shadow: ${(props) => props.theme.boxShadow};
   z-index: 2;
   border-bottom-right-radius: 0px;
-`
+`;
 
 const InfoCard = styled.View`
   padding: 20px 20px;
@@ -93,7 +93,7 @@ const InfoCard = styled.View`
   border-radius: 8px;
   border-bottom-left-radius: 0px;
   border-top-left-radius: 0px;
-`
+`;
 
 const DiscountLabelWrapper = styled.View`
   background: ${(props) => props.theme.primary};
@@ -104,42 +104,42 @@ const DiscountLabelWrapper = styled.View`
   border-top-left-radius: 8px;
   padding: 6px 14px;
   /* overflow: hidden; */
-`
+`;
 const DiscountLabel = styled.Text`
   color: white;
   font-size: 12px;
   font-family: "montserrat-bold";
-`
+`;
 
 const Wrapper = styled.View`
   margin: 0px 20px;
-`
+`;
 const Content = styled.View`
   flex-direction: row;
   align-items: flex-end;
-`
+`;
 
 const TitleWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   margin: 20px 0px;
-`
+`;
 
 const Title = styled.Text`
   font-family: "montserrat-extra-bold";
   color: ${(props) => props.theme.blackText};
   font-size: 24px;
-`
+`;
 const ViewAll = styled.Text`
   font-family: "montserrat-bold";
   font-size: 16px;
   color: ${(props) => props.theme.grayText};
   margin-bottom: 5px;
-`
+`;
 
 const Image = styled.Image`
   width: ${screenHeight > 700 ? "80px" : "60px"};
   height: ${screenHeight > 700 ? "120px" : "110px"};
   /* box-shadow: ${(props) => props.theme.boxShadow}; */
-`
+`;

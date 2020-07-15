@@ -1,7 +1,28 @@
 import React from "react";
-import { ThemeProvider } from "styled-components/native";
+import { ThemeProvider, DefaultTheme } from "styled-components/native";
 
-const theme = {
+declare module "styled-components" {
+  export interface DefaultTheme {
+    main: string;
+    grayText: string;
+    grayTextOnWhite: string;
+    blackText: string;
+    blackTextLighter: string;
+    primary: string;
+    primaryLighter: string;
+    primaryLighter2: string;
+    darkIcon: string;
+    grayForLines: string;
+    appBackground: string;
+    boxShadow: string;
+    boxShadowStronger: string;
+    tagBackground: string;
+    profileCardBackground: string;
+    profileCardText: string;
+  }
+}
+
+const theme: DefaultTheme = {
   main: "mediumseagreen",
   grayText: "#9e9ba9",
   grayTextOnWhite: "#a29fac",
@@ -18,8 +39,6 @@ const theme = {
   tagBackground: "#f1f1f1",
   profileCardBackground: "#39415b",
   profileCardText: "#6b7086",
-  // tagBackground: "#f5f5f6",
-  // appBackground: "#9c9c9c",
 };
 
 const Theme: React.StatelessComponent<{}> = ({ children }) => (

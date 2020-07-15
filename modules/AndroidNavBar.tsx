@@ -1,42 +1,49 @@
-import React, { Component } from "react"
-import { Dimensions, TouchableOpacity, View } from "react-native"
-import styled, { withTheme } from "styled-components/native"
-import { Row } from "../components"
-import { Feather } from "@expo/vector-icons"
-import { connect } from "react-redux"
+import React, { Component } from "react";
+import { Dimensions, TouchableOpacity, View } from "react-native";
+import styled, { withTheme } from "styled-components/native";
+import { Feather } from "@expo/vector-icons";
+import { connect } from "react-redux";
 
-const screenWidth = Math.round(Dimensions.get("window").width)
-const screenHeight = Math.round(Dimensions.get("window").height)
+import { Row } from "../components";
+
+const screenWidth = Math.round(Dimensions.get("window").width);
+const screenHeight = Math.round(Dimensions.get("window").height);
 
 class AndroidNavBar extends Component {
   state = {
     currentPage: "Home",
     hidden: false,
-  }
+  };
   goToProfile() {
-    this.props.goToProfileScreen()
-    this.setState({ currentPage: "Profile" })
+    this.props.goToProfileScreen();
+    this.setState({ currentPage: "Profile" });
   }
   goToHome() {
-    this.props.goToHomeScreen()
-    this.setState({ currentPage: "Home" })
+    this.props.goToHomeScreen();
+    this.setState({ currentPage: "Home" });
   }
 
   componentDidUpdate() {
-    const { action } = this.props
-    const { hidden } = this.state
+    const { action } = this.props;
+    const { hidden } = this.state;
 
     if (action === "viewEquipment") {
-      if (!hidden) this.setState({ hidden: true })
+      if (!hidden) {
+        this.setState({ hidden: true });
+      }
     }
     if (action === "goHome") {
-      if (hidden) this.setState({ hidden: false })
+      if (hidden) {
+        this.setState({ hidden: false });
+      }
     }
   }
   render() {
-    const { currentPage, hidden } = this.state
-    if (hidden) return <View></View>
-    if (!hidden)
+    const { currentPage, hidden } = this.state;
+    if (hidden) {
+      return <View />;
+    }
+    if (!hidden) {
       return (
         <Wrapper>
           <Row style={{ justifyContent: "space-around", alignItems: "center" }}>
@@ -51,7 +58,7 @@ class AndroidNavBar extends Component {
                         ? this.props.theme.primary
                         : this.props.theme.blackText
                     }
-                  ></Feather>
+                  />
                   <Title
                     style={{
                       color:
@@ -77,7 +84,7 @@ class AndroidNavBar extends Component {
                         ? this.props.theme.primary
                         : this.props.theme.blackText
                     }
-                  ></Feather>
+                  />
 
                   <Title
                     style={{
@@ -104,13 +111,14 @@ class AndroidNavBar extends Component {
                   //     ? this.props.theme.blackText
                   //     : "white"
                   // }
-                ></Feather>
+                />
                 <Title>CHAT</Title>
               </Item>
             </ChatButtonWrapper>
           </Row>
         </Wrapper>
-      )
+      );
+    }
   }
 }
 
@@ -125,27 +133,27 @@ const Wrapper = styled.View`
   border-top-right-radius: 18px;
   border-top-left-radius: 18px;
   box-shadow: ${(props) => props.theme.boxShadow};
-`
-const SearchButtonWrapper = styled.View``
-const ProfileButtonWrapper = styled.View``
-const ChatButtonWrapper = styled.View``
+`;
+const SearchButtonWrapper = styled.View``;
+const ProfileButtonWrapper = styled.View``;
+const ChatButtonWrapper = styled.View``;
 
 const Title = styled.Text`
   color: ${(props) => props.theme.blackText};
   font-family: "montserrat-extra-bold";
   font-size: 10px;
   margin-top: 8px;
-`
+`;
 const Item = styled.View`
   flex-direction: column;
   padding: 20px;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const mapStateToProps = (state) => {
-  return { action: state.action }
-}
+  return { action: state.action };
+};
 function mapDispatchToProps(dispatch) {
   return {
     goToProfileScreen: () =>
@@ -156,7 +164,7 @@ function mapDispatchToProps(dispatch) {
       dispatch({
         type: "VIEW_HOME",
       }),
-  }
+  };
 }
 
 // export default withTheme(
@@ -164,4 +172,4 @@ function mapDispatchToProps(dispatch) {
 // )
 export default withTheme(
   connect(mapStateToProps, mapDispatchToProps)(AndroidNavBar)
-)
+);
