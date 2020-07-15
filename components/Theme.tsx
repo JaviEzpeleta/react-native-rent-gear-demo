@@ -1,5 +1,5 @@
-import React from "react"
-import { ThemeProvider } from "styled-components/native"
+import React from "react";
+import { ThemeProvider } from "styled-components/native";
 
 const theme = {
   main: "mediumseagreen",
@@ -20,10 +20,10 @@ const theme = {
   profileCardText: "#6b7086",
   // tagBackground: "#f5f5f6",
   // appBackground: "#9c9c9c",
-}
+};
 
-const Theme = ({ children }) => (
+const Theme: React.StatelessComponent<{}> = ({ children }) => (
   <ThemeProvider theme={theme}>{children}</ThemeProvider>
-)
+);
 
-export default Theme
+export default Theme;
